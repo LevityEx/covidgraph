@@ -1,7 +1,21 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
+import './TooltipContent.css';
+
+const round = (num) => {
+    if (num > 1000000000) {
+        return Math.round(num / 100000000) / 10 + "Bn";
+    } else if (num > 1000000) {
+        return Math.round(num / 100000) / 10 + "M";
+    } else if (num > 1000) {
+        return Math.round(num / 100) / 10 + "K";
+    } 
+    return num;
+};
 
 function Stats(props) {
+    
+
     if(props.error !== "") {
        return (
             <>
@@ -13,10 +27,10 @@ function Stats(props) {
         return (
             <>
                 <h4>{props.name}</h4> 
-                <p>Deaths (total) - {props.deaths} </p>  
-                <p>Deaths (today) - {props.deathsToday}</p> 
-                <p>Cases (total) - {props.cases}</p> 
-                <p>Cases (today) - {props.casesToday}</p> 
+                <p>Deaths (total) - {round(props.deaths)}</p>  
+                <p>Deaths (today) - {round(props.deathsToday)}</p> 
+                <p>Cases (total) - {round(props.cases)}</p> 
+                <p>Cases (today) - {round(props.casesToday)}</p> 
             </>
         );
     }
@@ -27,7 +41,6 @@ function TooltipContent(props) {
     if(country !== "" || props.altName !== "") {
         return (
             <ReactTooltip>
-                
                 <Stats 
                     name={props.countryName}
                     deaths={props.deaths}

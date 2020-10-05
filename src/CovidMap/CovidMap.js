@@ -1,13 +1,14 @@
 import React from 'react';
 import './CovidMap.css';
-import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
+import { ComposableMap, Geographies, Geography, ZoomableGroup } from 'react-simple-maps';
 
 const geoUrl = "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
 function CovidMap(props) {
   return (
     <div>
-      <ComposableMap data-tip="" width="1000">
+      <ComposableMap data-tip="">
+        <ZoomableGroup center={[15,-19]}>
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
               geographies.map(geo => (
@@ -23,6 +24,7 @@ function CovidMap(props) {
               ))
             }
           </Geographies>
+        </ZoomableGroup>  
       </ComposableMap>
     </div>
   );

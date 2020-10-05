@@ -82,9 +82,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <CovidMap onHover={this.handleMouseEnter} onLeave={this.handleMouseExit}/>
-        <TooltipContent 
+      <div className="App">
+        <CovidMap 
+          onHover={this.handleMouseEnter} 
+          onLeave={this.handleMouseExit}
+
+        />
+        <TooltipContent
           countryName={this.state.name} 
           deaths={this.state.deaths} 
           deathsToday={this.state.deathsToday} 
