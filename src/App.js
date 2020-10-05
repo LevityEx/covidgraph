@@ -3,11 +3,36 @@ import './App.css';
 import CovidMap from './CovidMap/CovidMap';
 import TooltipContent from './TooltipContent/TooltipContent';
 
+
+
+
+function TitleCard(props) {
+  if(props.show) {
+    return(
+      <>
+        <div className="title-card">
+            <span className="close" onClick={props.onClick}><b>X</b></span>
+            <h1>CovidGraph v1.3.0</h1>
+            <hr/>
+            <p>
+              Click and drag to navigate, hover over countries to see <strong>Covid-19</strong> stats.<br/>
+              <span className="mobiletag"><b>Mobile users:</b> Use device in horizontal mode.</span>
+            </p>
+            <span className="author">Made by Robert Walford</span>
+        </div>
+      </>
+    );
+  }
+  return null;
+}
+
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseExit = this.handleMouseExit.bind(this);
+    this.closeTitle = this.closeTitle.bind(this);
     this.state = {
       name: "",
       deaths: "",
@@ -16,7 +41,8 @@ class App extends React.Component {
       casesToday: "",
       error: "",
       altName: "",
-      countries: []
+      countries: [],
+      showTitle: true,
     };
   }
 
@@ -80,9 +106,16 @@ class App extends React.Component {
     });
   }
 
+  closeTitle() {
+    this.setState({
+      showTitle: !this.state.showTitle,
+    });
+  }
+
   render() {
     return (
       <div className="App">
+        <TitleCard show={this.state.showTitle} onClick={this.closeTitle}/>
         <CovidMap 
           onHover={this.handleMouseEnter} 
           onLeave={this.handleMouseExit}
