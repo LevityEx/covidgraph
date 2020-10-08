@@ -27,10 +27,10 @@ function Stats(props) {
         return (
             <>
                 <h4>{props.name}</h4> 
-                <p>Deaths (total) - {round(props.deaths)}</p>  
-                <p>Deaths (today) - {round(props.deathsToday)}</p> 
-                <p>Cases (total) - {round(props.cases)}</p> 
-                <p>Cases (today) - {round(props.casesToday)}</p> 
+                <p>Total cases - {round(props.cases)}</p> 
+                <p>New cases - {round(props.casesToday)}</p> 
+                <p>Deaths - {round(props.deaths)}</p>  
+                <p>Recovered - {round(props.recovered)}</p> 
             </>
         );
     }
@@ -44,7 +44,7 @@ function TooltipContent(props) {
                 <Stats 
                     name={props.countryName}
                     deaths={props.deaths}
-                    deathsToday={props.deathsToday}
+                    recovered={props.recovered}
                     cases={props.cases}
                     casesToday={props.casesToday}
                     altName={props.altName}

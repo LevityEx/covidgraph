@@ -12,7 +12,7 @@ function TitleCard(props) {
       <>
         <div className="title-card">
             <span className="close" onClick={props.onClick}><b>X</b></span>
-            <h1>CovidGraph v1.3.0</h1>
+            <h1>Covid-19 Map v1.4.0</h1>
             <hr/>
             <p>
               Click and drag to navigate, hover over countries to see <strong>Covid-19</strong> stats.<br/>
@@ -33,10 +33,11 @@ class App extends React.Component {
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseExit = this.handleMouseExit.bind(this);
     this.closeTitle = this.closeTitle.bind(this);
+    this.fetchCovidData = this.fetchCovidData.bind(this);
     this.state = {
       name: "",
       deaths: "",
-      deathsToday: "",
+      recovered: "",
       cases: "",
       casesToday: "",
       error: "",
@@ -46,7 +47,7 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount() {
+  fetchCovidData() {
     fetch("https://disease.sh/v3/covid-19/countries")
       .then(res => {
         if(res.ok) {
@@ -65,6 +66,13 @@ class App extends React.Component {
           console.log(error);
         }
       )
+
+    console.log('updated');
+  }
+
+  componentDidMount() {
+    this.fetchCovidData();
+    setInterval(this.fetchCovidData, 6000);
   }
   
 
@@ -81,7 +89,7 @@ class App extends React.Component {
       this.setState({
         name: countryName,
         deaths: countryData.deaths,
-        deathsToday: countryData.todayDeaths,
+        recovered: countryData.recovered,
         cases: countryData.cases,
         casesToday: countryData.todayCases,
       }); 
@@ -98,7 +106,7 @@ class App extends React.Component {
     this.setState({
       name: "",
       deaths: "",
-      deathsToday: "",
+      recovered: "",
       cases: "",
       casesToday: "",
       error: "",
@@ -124,7 +132,7 @@ class App extends React.Component {
         <TooltipContent
           countryName={this.state.name} 
           deaths={this.state.deaths} 
-          deathsToday={this.state.deathsToday} 
+          recovered={this.state.recovered} 
           cases={this.state.cases} 
           casesToday={this.state.casesToday}
           altName={this.state.altName} 
