@@ -3,7 +3,10 @@ import './App.css';
 import CovidMap from './CovidMap/CovidMap';
 import TooltipContent from './TooltipContent/TooltipContent';
 
-
+//function components
+function worldStatsMenu(props) {
+  //USE STATE HOOK TO CREATE DROPDOWN LIST SHOWING WORLD STATS
+}
 
 
 function TitleCard(props) {
@@ -12,12 +15,13 @@ function TitleCard(props) {
       <>
         <div className="title-card">
             <span className="close" onClick={props.onClick}><b>X</b></span>
-            <h1>Covid-19 Map v1.4.0</h1>
+            <h1>Covid-19 Map</h1>
             <hr/>
             <p>
               Click and drag to navigate, hover over countries to see <strong>Covid-19</strong> stats.<br/>
               <span className="mobiletag"><b>Mobile users:</b> Use device in horizontal mode.</span>
             </p>
+
             <span className="author">Made by Robert Walford</span>
         </div>
       </>
@@ -26,7 +30,7 @@ function TitleCard(props) {
   return null;
 }
 
-
+//component with functions inside
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -44,6 +48,7 @@ class App extends React.Component {
       altName: "",
       countries: [],
       showTitle: true,
+      colour: ""
     };
   }
 
@@ -83,6 +88,18 @@ class App extends React.Component {
     
     if(countryData) {
       var countryName = countryData.country;      
+
+      console.log(countryData.cases);
+      var c = "";
+      if(countryData.cases <= 1000) {
+        c = 'stat-green';
+      } else if(countryData.cases <= 1000000) {
+        c = 'stat-orange';
+      } else {
+        c = 'stat-red';
+      }
+      this.setState({colour: c});
+
       if(nameList.includes(countryData.country)) {
         countryName = name;
       }
@@ -98,6 +115,7 @@ class App extends React.Component {
       this.setState({
         altName: name,
         error: "Country info not found",
+        colour: "stat-red"
       });
     }
   }
@@ -110,7 +128,9 @@ class App extends React.Component {
       cases: "",
       casesToday: "",
       error: "",
-      altName: ""
+      altName: "", 
+      colour: ""
+
     });
   }
 
@@ -124,10 +144,13 @@ class App extends React.Component {
     return (
       <div className="App">
         <TitleCard show={this.state.showTitle} onClick={this.closeTitle}/>
-        <CovidMap 
-          onHover={this.handleMouseEnter} 
-          onLeave={this.handleMouseExit}
 
+        
+        <CovidMap 
+          //send stats here to choose colour for countries.
+          onHover={this.handleMouseEnter} // apply colours here
+          onLeave={this.handleMouseExit}
+          colour={this.state.colour}
         />
         <TooltipContent
           countryName={this.state.name} 

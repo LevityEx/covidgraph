@@ -13,6 +13,7 @@ function CovidMap(props) {
             {({ geographies }) =>
               geographies.map(geo => (
                 <Geography
+                  className={props.colour}
                   key={geo.rsmKey}
                   geography={geo}
                   onMouseEnter={() => {

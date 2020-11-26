@@ -1,0 +1,11 @@
+.stat-green:hover {
+    fill: green;
+}
+
+.stat-orange:hover {
+    fill: orange;
+}
+
+.stat-red:hover {
+    fill: red;
+}
