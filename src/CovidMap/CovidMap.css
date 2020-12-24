@@ -1,3 +1,10 @@
+path {
+    outline: none;
+    fill: #EEE5E9;
+    stroke: black;
+    stroke-width: 0.2px;
+}
+
 .stat-green:hover {
     fill: green;
 }

@@ -1,6 +1,6 @@
+import { Divider, Typography } from '@material-ui/core';
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
-import './TooltipContent.css';
 
 const round = (num) => {
     if (num > 1000000000) {
@@ -19,18 +19,20 @@ function Stats(props) {
     if(props.error !== "") {
        return (
             <>
-                <h4>{props.altName}</h4> 
-                <p>{props.error}</p>
+                <Typography variant="h4" color='primary'>{props.altName}</Typography> 
+                    <Divider light/>
+                <Typography variant='body1' paragraph>{props.error}</Typography>
             </>
         );
     } else {
         return (
             <>
-                <h4>{props.name}</h4> 
-                <p>Total cases - {round(props.cases)}</p> 
-                <p>New cases - {round(props.casesToday)}</p> 
-                <p>Deaths - {round(props.deaths)}</p>  
-                <p>Recovered - {round(props.recovered)}</p> 
+                <Typography variant="h4" color='primary'>{props.name}</Typography>
+                    <Divider light/>
+                <Typography variant='body1' paragraph>Total cases - {round(props.cases)}</Typography>
+                <Typography variant='body1' paragraph>New cases - {round(props.casesToday)}</Typography>
+                <Typography variant='body1' paragraph>Deaths - {round(props.deaths)}</Typography> 
+                <Typography variant='body1' paragraph>Recovered - {round(props.recovered)}</Typography>
             </>
         );
     }
